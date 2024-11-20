@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Settings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <computerId>GLAZ-NB-04</computerId>
+  <URLonline>http://csis.name/checkonline.php</URLonline>
+  <URL1C>http://csis.name/check1c.php</URL1C>
+  <URLFTP>ftp://localhost/</URLFTP>
+  <URLFolder>http://csis.name/checkfolders.php</URLFolder>
+  <interval>10</interval>
+  <interval1C>1</interval1C>
+  <intervalFolder>1</intervalFolder>
+  <need1C>false</need1C>
+  <needFTP>false</needFTP>
+  <needFolder>false</needFolder>
+  <path1C />
+  <pathLogs />
+  <pathFolder>D:\Exchange</pathFolder>
+  <FTPlogin />
+  <FTPpassword />
+  <manageble>false</manageble>
+  <FTPperiodical>false</FTPperiodical>
+  <FTPTime>2020-01-20T04:10:00</FTPTime>
+  <pathTo1CDBFile />
+</Settings>

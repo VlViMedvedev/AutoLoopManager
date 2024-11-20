@@ -1,0 +1,9 @@
+# Исключить временные файлы
+__pycache__/
+*.pyc
+*.pyo
+
+# Исключить файлы PyInstaller
+/dist/
+/build/
+*.spec
