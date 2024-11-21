@@ -25,6 +25,9 @@ jobs:
     - name: Build EXE
       run: pyinstaller --noconsole --onefile main.py
 
+    - name: List files in dist
+      run: dir dist  # Use 'dir' for Windows
+
     - name: Upload EXE to artifacts
       uses: actions/upload-artifact@v3
       with:
@@ -33,7 +36,7 @@ jobs:
 
   release:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
@@ -43,11 +46,13 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: AutoLoopManager
+        path: .
+
+    - name: List downloaded files
+      run: dir  # Use 'dir' for Windows
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
-        files: dist/main.exe
-        tag_name: ${{ github.ref_name }}  # Указывает тег, с которым был вызван workflow
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        files: main.exe
+        tag_name: ${{ github.ref_name }}
