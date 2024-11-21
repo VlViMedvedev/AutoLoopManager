@@ -1,0 +1,47 @@
+name: Build and Release AutoLoop Manager
+
+on:
+  push:
+    tags:
+      - "v*"  # Событие запускается только при пуше тега
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.9"
+
+    - name: Install dependencies
+      run: pip install pyinstaller pyqt5
+
+    - name: Build EXE
+      run: pyinstaller --noconsole --onefile main.py
+
+    - name: Upload EXE to artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: AutoLoopManager
+        path: dist/main.exe
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: AutoLoopManager
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist/main.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
