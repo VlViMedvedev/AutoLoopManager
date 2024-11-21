@@ -45,7 +45,7 @@ jobs:
         name: AutoLoopManager
 
     - name: Create Release
-      uses: softprops/action-gh-release@v1.1.0
+      uses: softprops/action-gh-release@v1
       with:
         files: dist/main.exe
         tag_name: ${{ github.ref_name }}  # Указывает тег, с которым был вызван workflow
