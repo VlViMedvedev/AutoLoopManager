@@ -3,11 +3,8 @@ name: Build and Release AutoLoop Manager
 on:
   push:
     tags:
-      - "v*"  # Событие запускается только при пуше тега
-
-on:
-  workflow_dispatch:  # Позволяет запускать workflow вручную
-
+      - "v*"  # Запускать workflow при пуше тегов
+  workflow_dispatch:  # Добавляет возможность ручного запуска
 
 jobs:
   build:
