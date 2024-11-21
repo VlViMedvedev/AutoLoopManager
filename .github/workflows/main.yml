@@ -4,7 +4,14 @@ on:
   push:
     tags:
       - "v*"  # Запускать workflow при пуше тегов
-  workflow_dispatch:  # Позволяет запускать вручную
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "Название тега для релиза (например, v1.0)"
+        required: false
+
+permissions:
+  contents: write  # Разрешение на запись для создания релизов
 
 jobs:
   build:
@@ -26,7 +33,7 @@ jobs:
       run: pyinstaller --noconsole --onefile main.py
 
     - name: List files in dist
-      run: dir dist  # Use 'dir' for Windows
+      run: dir dist  # Проверка содержимого директории dist
 
     - name: Upload EXE to artifacts
       uses: actions/upload-artifact@v3
@@ -48,11 +55,15 @@ jobs:
         name: AutoLoopManager
         path: .
 
-    - name: List downloaded files
-      run: dir  # Use 'dir' for Windows
+    - name: Verify downloaded files
+      run: dir  # Проверяем скачанные файлы
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
         files: main.exe
-        tag_name: ${{ github.ref_name }}
+        tag_name: ${{ github.ref_name || github.event.inputs.tag_name }}
+        name: "Release ${{ github.ref_name || github.event.inputs.tag_name }}"
+        body: "Автоматический релиз версии ${{ github.ref_name || github.event.inputs.tag_name }}."
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
