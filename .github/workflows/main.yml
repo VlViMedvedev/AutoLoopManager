@@ -5,6 +5,10 @@ on:
     tags:
       - "v*"  # Событие запускается только при пуше тега
 
+on:
+  workflow_dispatch:  # Позволяет запускать workflow вручную
+
+
 jobs:
   build:
     runs-on: windows-latest
