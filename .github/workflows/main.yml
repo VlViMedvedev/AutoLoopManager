@@ -26,7 +26,7 @@ jobs:
       run: pyinstaller --noconsole --onefile main.py
 
     - name: Upload EXE to artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3.1
       with:
         name: AutoLoopManager
         path: dist/main.exe
@@ -45,7 +45,7 @@ jobs:
         name: AutoLoopManager
 
     - name: Create Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v1.1.0
       with:
         files: dist/main.exe
         tag_name: ${{ github.ref_name }}  # Указывает тег, с которым был вызван workflow
