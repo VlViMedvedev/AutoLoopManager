@@ -4,7 +4,7 @@ on:
   push:
     tags:
       - "v*"  # Запускать workflow при пуше тегов
-  workflow_dispatch:  # Добавляет возможность ручного запуска
+  workflow_dispatch:  # Позволяет запускать вручную
 
 jobs:
   build:
@@ -34,7 +34,11 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
+
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
     - name: Download build artifact
       uses: actions/download-artifact@v3
       with:
@@ -44,5 +48,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: dist/main.exe
+        tag_name: ${{ github.ref_name }}  # Указывает тег, с которым был вызван workflow
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
